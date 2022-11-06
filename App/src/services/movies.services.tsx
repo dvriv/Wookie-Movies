@@ -33,9 +33,11 @@ const fetchMovies: (query?: string) => Promise<Movies> = async (query) => {
 };
 
 // This function group the movies with all its data by genre also repeating movies that share genres
-export const getMoviesPerGenre = async () => {
+export const getMoviesPerGenre = async (
+    query: string | undefined | null = ' '
+) => {
     try {
-        const movies: Movie[] = await fetchMovies();
+        const movies: Movie[] = await fetchMovies(query);
 
         if (movies.length === 0) {
             return [];
