@@ -16,7 +16,9 @@ export type Movie = {
 
 export type Movies = Movie[];
 
-const fetchMovies: (query?: string) => Promise<Movies> = async (query) => {
+const fetchMovies: (
+    query?: string | undefined | null
+) => Promise<Movies> = async (query) => {
     const response = await fetch(
         `https://wookie.codesubmit.io/movies${query ? '?q=' + query : ''}`,
         {
