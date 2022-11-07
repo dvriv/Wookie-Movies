@@ -2,7 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import Home from './pages/Home';
-import { getMoviesPerGenre } from './services/movies.services';
+import MovieDetails from './pages/MovieDetails';
+import { getMoviesPerGenre, fetchMovie } from './services/movies.services';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 const router = createBrowserRouter([
@@ -20,10 +21,15 @@ const router = createBrowserRouter([
             return getMoviesPerGenre(searchTerm);
         },
     },
+    {
+        path: '/movie/:movieSlug',
+        element: <MovieDetails />,
+        loader: ({ params }) => fetchMovie(params.movieSlug),
+    },
 ]);
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     <React.StrictMode>
-        <RouterProvider router={router} />;
+        <RouterProvider router={router} />
     </React.StrictMode>
 );

@@ -15,14 +15,18 @@ function Home() {
                             <div>
                                 {movies[genreTitle].map((movie) => (
                                     <div key={movie.slug}>
-                                        <p>
-                                            {movie.title} {' ('}
-                                            {new Date(
-                                                movie.released_on
-                                            ).getFullYear()}
-                                            {')'}
-                                        </p>
-                                        <img src={movie.poster}></img>
+                                        <Link to={'/movie/' + movie.slug}>
+                                            <div>
+                                                <p>
+                                                    {movie.title} {' ('}
+                                                    {new Date(
+                                                        movie.released_on
+                                                    ).getFullYear()}
+                                                    {')'}
+                                                </p>
+                                                <img src={movie.poster}></img>
+                                            </div>
+                                        </Link>
                                     </div>
                                 ))}
                             </div>

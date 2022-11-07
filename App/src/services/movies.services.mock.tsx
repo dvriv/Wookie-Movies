@@ -99,3 +99,19 @@ export const THREE_MOVIES_WITH_DIFFERENT_THREE_GENRE_EACH = {
         },
     ],
 };
+
+export const ONE_MOVIE_DETAILS = {
+    backdrop: 'backdrop',
+    cast: ['Action', 'Crime', 'Drama'],
+    classification: '13+',
+    director: 'director3',
+    genres: ['Genre7', 'Genre8', 'Genre9'],
+    id: 'd6822b7b-48bb-4b78-ad5e-9ba04c517ec8',
+    imdb_rating: 9.0,
+    length: '2h 32min',
+    overview: 'overview',
+    poster: 'posterurl',
+    released_on: '2008-07-16T00:00:00',
+    slug: 'slug3',
+    title: 'movie3',
+};

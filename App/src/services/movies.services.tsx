@@ -66,3 +66,23 @@ export const getMoviesPerGenre = async (
         throw Error('Error on API request');
     }
 };
+
+export const fetchMovie: (movieSlug?: string) => Promise<Movie> = async (
+    movieSlug
+) => {
+    try {
+        const response = await fetch(
+            `https://wookie.codesubmit.io/movies/${movieSlug}`,
+            {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: 'Bearer Wookie2021',
+                },
+            }
+        );
+        return await response.json();
+    } catch (e) {
+        throw Error('Error on movie API request ');
+    }
+};

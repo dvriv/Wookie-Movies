@@ -1,12 +1,14 @@
-import { getMoviesPerGenre } from './movies.services';
+import { fetchMovie, getMoviesPerGenre } from './movies.services';
 import {
     THREE_MOVIES_WITH_SAME_THREE_GENRE_EACH,
     THREE_MOVIES_WITH_DIFFERENT_THREE_GENRE_EACH,
+    ONE_MOVIE_DETAILS,
 } from './movies.services.mock';
 import type { Movies } from './movies.services';
 
 const unmockedFetch = global.fetch;
 
+// Testing getMoviesPerGenre()
 describe('using 3 movies that have the SAME three genre each', () => {
     beforeAll(
         () =>
@@ -164,8 +166,51 @@ describe('if there is an error', () => {
     });
 
     it('should get an error', async () => {
-        expect(getMoviesPerGenre()).rejects.toThrow(
-            Error('Error on API request')
+        expect(async () => await getMoviesPerGenre()).rejects.toThrow();
+    });
+});
+
+// Testing fetchMovie
+
+describe('one movie details full object', () => {
+    beforeAll(
+        () =>
+            (global.fetch = jest.fn(() =>
+                Promise.resolve({
+                    json: () => Promise.resolve(ONE_MOVIE_DETAILS),
+                })
+            ) as jest.Mock)
+    );
+
+    afterAll(() => {
+        global.fetch = unmockedFetch;
+    });
+
+    it('check if it matches the fake details object ', async () => {
+        expect(await fetchMovie('slug3')).toEqual(ONE_MOVIE_DETAILS);
+    });
+});
+
+describe('no movie found', () => {
+    beforeAll(
+        () =>
+            (global.fetch = jest.fn(() =>
+                Promise.resolve({
+                    json: () =>
+                        Promise.resolve(
+                            'Not found (hint: use the slug, not the id)'
+                        ),
+                })
+            ) as jest.Mock)
+    );
+
+    afterAll(() => {
+        global.fetch = unmockedFetch;
+    });
+
+    it('check if getting the Not Found message correctly', async () => {
+        expect(await fetchMovie('slug3')).toEqual(
+            'Not found (hint: use the slug, not the id)'
         );
     });
 });
